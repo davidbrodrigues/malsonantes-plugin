@@ -1,12 +1,21 @@
 <?php
-add_filter( 'the_content', 'filter_the_content_in_the_main_loop', 1 );
+/*
+Plugin Name: Plugin malsonantes david
+Plugin URI: http://www.davidbr.org/
+Description: blacklist de palabras malsonantes
+Version: 1.0
+*/
+/*
+ * Remplaza las palabras malas por las buenas
+ */
+add_filter( 'the_content', 'filtro_palabras_malsonantes', 1 );
 
-function filter_the_content_in_the_main_loop( $content ) {
+function filtro_palabras_malsonantes( $content ) {
 
-    // Check if we're inside the main loop in a single Post.
-    if ( is_singular() && in_the_loop() && is_main_query() ) {
-        return $content . esc_html__( 'I’m filtering the content inside the main loop', 'wporg');
-    }
+    $malsonantes = array('gilipollas', 'subnormal', 'idiota', 'tonto');
+    $reemplazo = array('palabra_blacklist');
+
+    str_replace($malsonantes, $reemplazo, $content);
 
     return $content;
 }
